@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>New person</title>
+    <style>
+    form, div, h1{
+			text-align: center;
+		}
+    </style>
+</head>
+<body>
+
+<form th:method="POST" th:action="@{/first/loadingEditForm}" th:object="${news}" enctype="multipart/form-data" >
+
+    	<label for="heading">Enter heading: </label>
+    	<textarea cols="80" rows="5" th:field="*{heading}" id="heading"></textarea>
+    	
+    	<br/>
+    	<br/>
+    	<label for="news">Enter news: </label>
+    	<textarea cols="80" rows="5" th:field="*{news}" id="news"></textarea>
+    
+    	<br/>
+    	<br/>
+    	<br/>
+    	<br/>
+    	<input type="submit" value="Update news"/>
+    	<br/>
+    	<br/>
+    	<br/>
+		<div><img width="400" th:src="${news.getPath()}" alt=""></div>
+		<br/>
+		<hr/>
+
+</form>
+	<br/>
+	<div><a  href="/NewsFeed/first/newscontent"><input type="submit" value="Back"/></a></div>
+</body>
+</html>

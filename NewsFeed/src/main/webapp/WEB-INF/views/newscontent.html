@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://thymeleaf.org">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+<head>
+    <meta charset="UTF-8">
+    <title>Show</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script> 
+	<script>
+		function countNews() {
+			var quan = document.getElementById("count").value; 
+			var str = "count="+quan; 
+			$.ajax({
+				type:"get", 
+				url: "newscontent", 
+				data: str, 
+				success:function(answer){ 
+					$("#news").html(answer); 
+				}
+			});
+		}
+	</script>
+	<style>
+		#content{
+			width: 80%;
+			border: 3px solid green; 
+    		margin: auto;
+		}
+		#editContent{
+			width: 30%;
+			border: 1px solid green; 
+    		margin: auto;
+		}
+		#hed, #edit{
+			text-align: center;
+			font-size: 25px;
+			font-weight: 600;
+		}
+		#table{
+			border:0.5px solid; 
+			border-collapse:collapse;
+			width: 50;
+			}
+		#select, #content, h1{
+			text-align: center;
+		}
+		#data{
+			text-align: right;
+			color: rgba(8, 8, 8, 0.66);
+			 text-shadow: 1px 1px 1px rgba(247, 241, 241, 0.53);
+			 font-size: 15px;
+		}
+    	nav {
+			max-width: 1000px;
+		    mask-image: linear-gradient(90deg, rgba(241, 233, 233, 0.01) 0%, #f5eded 25%, #fbf4f4 75%, rgba(241, 235, 235, 0) 100%);
+		    margin: 0 auto;
+		    padding: 35px 0;
+  			}
+		nav ul, th {
+			text-align: center;
+	  		background: linear-gradient(90deg, rgba(245, 235, 235, 0) 0%, rgba(243, 235, 235, 0.2) 25%, rgba(239, 239, 239, 0.2) 75%, rgba(243, 242, 242, 0) 100%);
+	  		width: 100%;
+	  		box-shadow: 0 0 25px rgba(23, 22, 22, 0.15), inset 0 0 1px rgba(249, 245, 245, 0.63);
+			}
+		nav ul li {
+  			display: inline-block;
+			}
+
+		nav ul li a {
+			 padding: 18.9px;
+			 font-family: "Roboto";
+			 color: rgba(8, 8, 8, 0.66);
+			 text-shadow: 1px 1px 1px rgba(247, 241, 241, 0.53);
+			 font-size: 25px;
+			 text-decoration: none;
+			 display: block;
+			 }
+		select {
+  			text-align: center;
+  			text-align-last: center;
+  			font-size: 25px;
+  			text-shadow: 1px 1px 1px rgba(247, 241, 241, 0.53);
+  			background: linear-gradient(90deg, rgba(245, 235, 235, 0) 0%, rgba(243, 235, 235, 0.2) 25%, rgba(239, 239, 239, 0.2) 75%, rgba(243, 242, 242, 0) 100%);
+	  		width: 50%;
+			}
+	</style>
+</head>
+<body id="news">
+	<nav>
+		<ul>		
+			<li><a href='/NewsFeed/'>Back</a></li>
+			<li><a th:each="state:${state}" href='/NewsFeed/first/exit'>Exit</a></li>
+		</ul>
+	</nav>
+	<div id="content" th:each="news:${news}">
+		<p id="hed" th:text="${news.getHeading()}">VALUE</p>
+		<p id="data" th:text="${news.getDate_add()}">VALUE</p>
+		<p th:text="${news.getNews()}">VALUE</p>
+		<!-- <form><unput type="submit" value="Edit News"/></form>  -->
+		<div><img width="400" th:src="${news.getPath()}" alt=""></div>
+		<br/>
+			<nav><ul>
+				<li><a th:each="state:${state}" th:href="@{/first/{id}(id=${news.getId()})}">Edit</a></li>
+				<li><a th:each="state:${state}" th:href="@{/first/{id}(id=${news.getId()})}">Delete</a></li>
+			</ul></nav>
+		<br/>
+		<br/>
+		<br/>
+		<br/>
+	</div>
+
+	<div id="select">
+		<select id ='count' onchange="countNews()">
+			<option value="">Choose</option>
+			<option value="10">10</option>
+			<option value="20">20</option>
+			<option value="50">50</option>
+		</select>
+	</div>
+	<nav>
+		<ul>		
+			<li><a href='/NewsFeed/'>Back</a></li>
+		</ul>
+	</nav>
+</body>
+</html>

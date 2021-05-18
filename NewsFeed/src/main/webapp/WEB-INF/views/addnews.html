@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>New person</title>
+    <style>
+    form, div, h1{
+			text-align: center;
+		}
+    </style>
+</head>
+<body>
+
+<form th:method="POST" th:action="@{/first/loadingForm}" th:object="${news}" enctype="multipart/form-data" >
+
+    	<label for="heading">Enter heading: </label>
+    	<input type="text" th:field="*{heading}" id="heading"/>
+    	<div style="color:red" th:if="${#fields.hasErrors('heading')}" th:errors="*{heading}">Heading Error</div>
+    	<br/>
+    	<br/>
+    	<label for="news">Enter news: </label>
+    	<input type="text" th:field="*{news}" id="news"/>
+    	<div style="color:red" th:if="${#fields.hasErrors('news')}" th:errors="*{news}">News Error</div>
+    	<br/>
+    	<br/>
+    	<label for="file">Enter image: </label>
+    	<input name="file" type="file" multiple accept=".jpeg,.png,.jpg" id="file" />
+    	
+    	<br/>
+    	<br/>
+    	<input type="submit" value="Create news"/>
+
+</form>
+	<br/>
+	<div><a  href="/NewsFeed"><input type="submit" value="Back"/></a></div>
+</body>
+</html>
